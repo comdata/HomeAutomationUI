@@ -849,10 +849,9 @@ sap.ui.define([
             success: function(response) {
             	subject._openWindows=response;
             	subject._updateOpenWindows();
-     
-              }, subject);
-              console.log(response);
-            }});
+            }
+            
+            });
         },
         /**
 		 * handle successful data loading for overview tiles
