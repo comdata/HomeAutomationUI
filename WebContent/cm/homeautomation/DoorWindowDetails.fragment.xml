@@ -18,6 +18,9 @@
 						title="Devices" selectionMode="MultiToggle">
 						<columns>
 							<Column>
+								<Text text="Raum" />
+							</Column>
+							<Column>
 								<Text text="Name" />
 							</Column>
 							<Column>
@@ -31,6 +34,7 @@
 						<items>
 							<ColumnListItem>
 								<cells>
+									<Text text="{doorWindow>room/roomName}" />
 									<Text text="{doorWindow>window/name}" />
 									<Text text="{=${doorWindow>state} === 0 ? 'geschlossen': 'offen' }" />
 									<Text
