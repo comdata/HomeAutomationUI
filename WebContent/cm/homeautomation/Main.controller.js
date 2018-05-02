@@ -296,7 +296,12 @@ sap.ui.define([
             var numberOpen=0;
 
             this._openWindows.forEach(function (element, index, array) {
-              if (element.state=="OPEN") {
+            	var translatedState="CLOSED";
+                if (element.state==1) {
+                    translatedState="OPEN";
+                  }
+            	
+              if (translatedState=="OPEN") {
                 numberOpen++;
               }
             }, this );
