@@ -284,21 +284,25 @@ sap.ui.define([
           }
 
 
-          // do an update on the tile
-          var numberOpen=0;
+          this._updateOpenWindows();
 
-          this._openWindows.forEach(function (element, index, array) {
-            if (element.state=="OPEN") {
-              numberOpen++;
-            }
-          }, this );
-
-          this.windowStateTile.number=numberOpen;
-          this.windowStateTile.info=(numberOpen>0)?"Offen":"alle geschlossen";
 
 
         	// this.powerMeterTile.info="1 / 5 / 60 minutes";
           this.getView().getModel().refresh(false);
+        },
+        _updateOpenWindows: function () {
+            // do an update on the tile
+            var numberOpen=0;
+
+            this._openWindows.forEach(function (element, index, array) {
+              if (element.state=="OPEN") {
+                numberOpen++;
+              }
+            }, this );
+
+            this.windowStateTile.number=numberOpen;
+            this.windowStateTile.info=(numberOpen>0)?"Offen":"alle geschlossen";
         },
 
         handlePowerEvent: function (data) {
@@ -843,10 +847,9 @@ sap.ui.define([
               dataType: "json",
 
             success: function(response) {
-              response.forEach(function (element, index, array) {
-                if (element!=null && element.room!=null) {
-			subject.handleWindowStateEvent(element);
-		}
+            	subject._openWindows=response;
+            	subject._updateOpenWindows();
+     
               }, subject);
               console.log(response);
             }});
