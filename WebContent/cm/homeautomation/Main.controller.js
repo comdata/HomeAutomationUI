@@ -271,7 +271,7 @@ sap.ui.define([
           var found=false;
 
           this._openWindows.forEach(function (element, index, array) {
-            if (element.mac==data.mac) {
+            if (element.window.id==data.window.id) {
               element.state=translatedState;
               found=true;
             }
@@ -279,7 +279,7 @@ sap.ui.define([
 
           // add new entry
           if (found==false) {
-            var newOpenWindow={"mac":data.mac, "state": translatedState, "roomName":roomName, "roomId": roomId};
+            var newOpenWindow={"mac":data.mac, "state": translatedState, "roomName":roomName, "roomId": roomId, "window": {"id": data.window.id}};
             this._openWindows.push(newOpenWindow);
           }
 
