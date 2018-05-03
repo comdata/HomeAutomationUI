@@ -305,6 +305,8 @@ sap.ui.define([
                 numberOpen++;
               }
             }, this );
+            
+            sap.ui.getCore().setModel(this._openWindows, "doorWindow");
 
             this.windowStateTile.number=numberOpen;
             this.windowStateTile.info=(numberOpen>0)?"Offen":"alle geschlossen";
