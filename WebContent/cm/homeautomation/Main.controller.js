@@ -306,9 +306,12 @@ sap.ui.define([
               }
             }, this );
             
-            sap.ui.getCore().setModel(this._openWindows, "doorWindow");
+            var jsonModel=new JSONModel();
+            jsonModel.setData(this._openWindows);
+            this.handleDoorWindowLoaded(null, jsonModel);
 
             this.windowStateTile.number=numberOpen;
+            // FIXME localize
             this.windowStateTile.info=(numberOpen>0)?"Offen":"alle geschlossen";
         },
 
@@ -1445,6 +1448,8 @@ sap.ui.define([
           doorWindowLoad: function() {
           var subject = this;
           var doorWindowModel = new RESTService();
+          
+          //this.handleDoorWindowLoaded();
           doorWindowModel.loadDataAsync("/HomeAutomation/services/window/readAll", "", "GET", subject.handleDoorWindowLoaded, null, subject);
 
         },
@@ -1521,7 +1526,7 @@ sap.ui.define([
                   this._dialogs["doorWindow"] = sap.ui.xmlfragment("cm.homeautomation.DoorWindowDetails", this);
               }
               this._dialogs["doorWindow"].open();
-              this.doorWindowLoad();
+              //this.doorWindowLoad();
             }
             else if (tileType =="transmission") {
                 if (!this._dialogs["downloads"]) {
@@ -1817,7 +1822,7 @@ sap.ui.define([
 
         doorWindowDialogClose: function() {
             this._dialogs["doorWindow"].close();
-            sap.ui.getCore().setModel(new JSONModel(), "doorWindow");
+            //sap.ui.getCore().setModel(new JSONModel(), "doorWindow");
         },
         downloadsDialogClose: function() {
             this._dialogs["downloads"].close();
