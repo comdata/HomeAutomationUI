@@ -272,14 +272,14 @@ sap.ui.define([
 
           this._openWindows.forEach(function (element, index, array) {
             if (element.window.id==data.window.id) {
-              element.state=translatedState;
+              element.state=state;
               found=true;
             }
           }, this );
 
           // add new entry
           if (found==false) {
-            var newOpenWindow={"mac":data.mac, "state": translatedState, "roomName":roomName, "roomId": roomId, "window": {"id": data.window.id}};
+            var newOpenWindow={"mac":data.mac, "state": state, "roomName":roomName, "roomId": roomId, "window": {"id": data.window.id}};
             this._openWindows.push(newOpenWindow);
           }
 
