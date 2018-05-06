@@ -75,6 +75,7 @@ sap.ui.define([
         _webEventBusSocket: null,
         _webOverviewSocket: null,
         _wsGuid: guid(),
+        _websockets: {},
         loadDataInProgress: false,
         _dialogs: [],
         _cameraRefreshDisabled: false,
@@ -89,50 +90,25 @@ sap.ui.define([
             this.wsClose(socket, state);
 
             state="CONNECTING";
-            socket = new WebSocket(uri+"/"+this._wsGuid);
+            var socket = new WebSockHop(uri+"/"+this._wsGuid);
+            
+            this._websockets[uri]=socket;
+            
+            socket.formatter = new WebSockHop.JsonFormatter();
+            socket.formatter.pingRequest = { type: 'ping' };
+            socket.pingIntervalMsecs = 60000; // Change this to experiment with ping interval
+            socket.pingResponseTimeoutMsecs = 10000; 
             var controller = this;
-            socket.onopen = function (evt, state) {
-                controller.wsOnOpen.apply(controller, [evt, state]);
-            };
-            socket.onclose = function (evt) {
-                controller.wsOnClose.apply(controller, [evt, uri, callback, socket, state]);
-            };
-            socket.onmessage = function (evt) {
+            socket.on('message', function (evt) {
                 // controller.wsClose(socket, state);
                 // controller.initWebSocket(uri, callback, socket, state);
                 callback.apply(controller, [evt]);
 
-            };
-            socket.onerror = function (evt) {
+            });
+            /*socket.onerror = function (evt) {
                 controller.wsOnClose.apply(controller, [evt, uri, callback, socket, state]);
 
-            };
-        },
-        wsOnOpen: function (evt, state) {
-        		state="CONNECTED";
-        },
-        wsClose: function(socket, state) {
-        	 try {
-	        	state="DISCONNECTED";
-	        	if (socket!=null && socket.readyState<3) {
-	        		socket.close();
-	        	}
-        	 } catch (e) {
-
-        	 }
-
-        },
-        wsOnClose: function (evt, uri, callback, socket, state) {
-        		console.log("socket "+uri+" closed");
-        		this.wsClose(socket, state);
-            var that=this;
-
-            if (state=="DISCONNECTED") {
-            	window.setTimeout(function () {
-
-            		that.initWebSocket(uri, callback, socket, state);
-            	}, 30000);
-            }
+            };*/
         },
         handleSwitchEvent: function (data) {
 
