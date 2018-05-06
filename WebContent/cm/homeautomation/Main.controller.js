@@ -315,7 +315,20 @@ sap.ui.define([
             this.windowStateTile.info=(numberOpen>0)?"Offen":"alle geschlossen";
         },
         doorWindowStateChange: function (event) {
-        	//TODO implement
+            var singleSwitch = sap.ui.getCore().getModel("doorWindow").getProperty(event.getSource().oPropagatedProperties.oBindingContexts.doorWindow.sPath);
+
+            var newState = "";
+
+            if (singleSwitch.switchState == true) {
+                newState = "open";
+            } else {
+                newState = "closed";
+            }
+
+
+            var oModel = new RESTService();
+            oModel.loadDataAsync("/HomeAutomation/services/window/setState/" + singleSwitch.window.id + "/"
+                + newState, "", "GET", this.handleSwitchChanged, null, this);
         },
 
         handlePowerEvent: function (data) {
