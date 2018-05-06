@@ -185,7 +185,7 @@ sap.ui.define([
                 var tileNo = null;
 
                 $.each(this.overviewData.overviewTiles, function (i, tile) {
-                    if (tile!=null && tile.roomId!=null && tile.roomId == newData.roomId && tile.tileType=="room") {
+                    if (tile!=null && newData!=null && newData.roomId!=null && tile.roomId!=null && tile.roomId == newData.roomId && tile.tileType=="room") {
                         tileNo = i;
                     }
 
