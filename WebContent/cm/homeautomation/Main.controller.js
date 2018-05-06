@@ -85,11 +85,6 @@ sap.ui.define([
         	this._cameraRefreshDisabled=!oEvent.getParameter("state");
         },
         initWebSocket: function (uri, callback, socket, state) {
-
-
-            this.wsClose(socket, state);
-
-            state="CONNECTING";
             var socket = new WebSockHop(uri+"/"+this._wsGuid);
             
             this._websockets[uri]=socket;
