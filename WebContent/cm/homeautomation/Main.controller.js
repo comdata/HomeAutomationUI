@@ -314,6 +314,9 @@ sap.ui.define([
             // FIXME localize
             this.windowStateTile.info=(numberOpen>0)?"Offen":"alle geschlossen";
         },
+        doorWindowStateChange: function (event) {
+        	//TODO implement
+        },
 
         handlePowerEvent: function (data) {
         	if (this.powerMeterTileOneMinute) {
