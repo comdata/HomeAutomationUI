@@ -36,8 +36,8 @@
 								<cells>
 									<Text text="{doorWindow>room/roomName}" />
 									<Text text="{doorWindow>window/name}" />
-									<!--<Text text="{=${doorWindow>state} === 0 ? 'geschlossen': 'offen' }" />-->
-									<Switch text="{=${doorWindow>state} === 0 ? false: true }" customTextOn="Offen" customTextOff="Geschlossen" change="doorWindowStateChange" />
+									<Text text="{=${doorWindow>state} === 0 ? 'geschlossen': 'offen' }" />
+									<Switch text="{=${doorWindow>state} === 0 ? false: true }" customTextOn="O" customTextOff="G" change="doorWindowStateChange" />
 									<Text
 										text="{
 											path: 'doorWindow>date',
