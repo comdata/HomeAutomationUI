@@ -130,7 +130,7 @@ sap.ui.define([
         },
 
         wsEventBusOnMessage: function (evt) {
-            var newData = JSON.parse(evt.data);
+            var newData = evt.data;
             if (newData.clazz=="TransmissionStatusData") {
             	this.handleTransmissionStatus(newData.data);
             }
@@ -177,7 +177,7 @@ sap.ui.define([
             console.log(evt.data);
         },
         wsOverviewOnMessage: function (evt) {
-            var newData = JSON.parse(evt.data);
+            var newData = evt.data;
 
             if (this.overviewData != null) {
 
