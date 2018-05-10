@@ -90,7 +90,7 @@ sap.ui.define([
             this._websockets[uri]=socket;
             
             socket.formatter = new WebSockHop.JsonFormatter();
-            socket.formatter.pingRequest = { type: 'ping' };
+            socket.formatter.pingRequest = { "@c": "WebSocketPing","type": 'ping' };
             socket.pingIntervalMsecs = 60000; // Change this to experiment with ping interval
             socket.pingResponseTimeoutMsecs = 10000; 
             var controller = this;
