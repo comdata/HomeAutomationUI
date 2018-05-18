@@ -27,6 +27,8 @@
 								<Text text="Zustand" />
 							</Column>
 							<Column>
+							</Column>
+							<Column>
 								<Text text="{i18n>since}" />
 							</Column>
 						</columns>
