@@ -89,6 +89,8 @@
 	var dataQueryRunning = false;
 	var dataQuery;
 
+	sap.ui.loader.config({async: true});
+	
 	sap.ui.getCore().attachInit(function() {
 		application = new sap.m.App({
 			metadata : {

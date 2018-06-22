@@ -1,11 +1,11 @@
 var imageFullScreen = false;
 
 
-jQuery.sap.require("sap.ui.core.UIComponent");
-jQuery.sap.require("sap.m.Dialog");
-jQuery.sap.require("sap.m.MessageToast");
-jQuery.sap.require("cm.homeautomation.Scripting");
-jQuery.sap.require("cm.homeautomation.ColorPicker");
+sap.ui.require(["sap/ui/core/UIComponent"]);
+sap.ui.require(["sap/m/Dialog"]);
+sap.ui.require(["sap/m/MessageToast"]);
+sap.ui.require(["cm/homeautomation/Scripting"]);
+sap.ui.require(["cm/homeautomation/ColorPicker"]);
 
 function resize(element) {
 
