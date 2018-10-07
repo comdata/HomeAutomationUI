@@ -85,16 +85,16 @@ sap.ui.define([
         	this._cameraRefreshDisabled=!oEvent.getParameter("state");
         },
         initWebSocket: function (uri, callback, socket, state) {
-            var socket = new WebSockHop(uri+"/"+this._wsGuid);
+            var webHopSocket = new WebSockHop(uri+"/"+this._wsGuid);
             
-            this._websockets[uri]=socket;
+            this._websockets[uri]=webHopSocket;
             
-            socket.formatter = new WebSockHop.JsonFormatter();
-            socket.formatter.pingRequest = { "@c": "WebSocketPing","type": 'ping' };
-            socket.pingIntervalMsecs = 60000; // Change this to experiment with ping interval
-            socket.pingResponseTimeoutMsecs = 10000; 
+            webHopSocket.formatter = new WebSockHop.JsonFormatter();
+            webHopSocket.formatter.pingRequest = { "@c": "WebSocketPing","type": 'ping' };
+            webHopSocket.pingIntervalMsecs = 60000; // Change this to experiment with ping interval
+            webHopSocket.pingResponseTimeoutMsecs = 10000; 
             var controller = this;
-            socket.on('message', function (evt) {
+            webHopSocket.on('message', function (evt) {
                 // controller.wsClose(socket, state);
                 // controller.initWebSocket(uri, callback, socket, state);
                 callback.apply(controller, [evt]);
@@ -121,11 +121,11 @@ sap.ui.define([
                     }
                 });
 
-                var switchModel = new JSONModel();
+                var newSwitchModel = new JSONModel();
 
-                switchModel.setData(switches);
+                newSwitchModel.setData(switches);
 
-                sap.ui.getCore().setModel(switchModel, "switches");
+                sap.ui.getCore().setModel(newSwitchModel, "switches");
             }
         },
 
@@ -335,9 +335,9 @@ sap.ui.define([
 	    				var parts=camera.tile.icon.split("?");
 	    				var newUrl="";
 
-	        				for (var i=0; i<parts.length;i++) {
-	        					if (parts[i].indexOf("random=")==-1) {
-	    						newUrl+=parts[i]+"?";
+	        				for (var a=0; a<parts.length;a++) {
+	        					if (parts[a].indexOf("random=")==-1) {
+	    						newUrl+=parts[a]+"?";
 	    					}
 	    				}
 	    				var imageURL = newUrl+"random=" + Math.random();
@@ -933,11 +933,11 @@ sap.ui.define([
 
           $.each(modelData, function(i, data) {
 
-		        var element = {
-		  				ipAddress: data.ip,
-		  				hostName: data.hostname,
-		  				mac: data.mac
-		  		}
+//		        var element = {
+//		  				ipAddress: data.ip,
+//		  				hostName: data.hostname,
+//		  				mac: data.mac
+//		  		}
 		        subject.handleNetworkMonitor(data);
           });
 
@@ -1164,7 +1164,7 @@ sap.ui.define([
         handleThermostatChange: function (event) {
             var thermostat = sap.ui.getCore().getModel("thermostats").getProperty(event.getSource().oPropagatedProperties.oBindingContexts.thermostats.sPath);
 
-            var value = event.getParameter("value");;
+            var value = event.getParameter("value");
             console.log("new value: " + value);
 
             var oModel = new RESTService();
@@ -1199,7 +1199,7 @@ sap.ui.define([
             switchesModel.loadDataAsync("/HomeAutomation/services/actor/forroom/" + subject.selectedRoom, "", "GET", subject.handleSwitchesLoaded, null, subject);
 
             var thermostatModel = new RESTService();
-            switchesModel.loadDataAsync("/HomeAutomation/services/actor/thermostat/forroom/" + subject.selectedRoom, "", "GET", subject.handleThermostatsLoaded, null, subject);
+            thermostatModel.loadDataAsync("/HomeAutomation/services/actor/thermostat/forroom/" + subject.selectedRoom, "", "GET", subject.handleThermostatsLoaded, null, subject);
 
             var windowBlindsModel = new RESTService();
             windowBlindsModel.loadDataAsync("/HomeAutomation/services/windowBlinds/forRoom/" + subject.selectedRoom, "", "GET", subject.handleWindowBlindsLoaded, null, subject);
@@ -1874,22 +1874,8 @@ sap.ui.define([
 
         getCurrentTime: function () {
             var Digital = new Date();
-            var hours = Digital.getHours();
-            var minutes = Digital.getMinutes();
-            var seconds = Digital.getSeconds();
-            var dn = "AM";
-            if (hours > 12) {
-                dn = "PM";
-                hours = hours - 12;
-            }
-            if (hours == 0)
-                hours = 12;
-            if (minutes <= 9)
-                minutes = "0" + minutes;
-            if (seconds <= 9)
-                seconds = "0" + seconds;
-            var sLocale = sap.ui.getCore().getConfiguration().getLanguage();
-            sLocale = "de";
+
+            var sLocale = "de";
             var time = Digital.toLocaleTimeString(sLocale);
             var date = Digital.toLocaleDateString(sLocale);
             if (this.byId("idMenuClock")) {
@@ -2060,12 +2046,12 @@ sap.ui.define([
             this.administrationDialogLoadRooms();
         },
         handleRoomSelected: function (item, items, selected) {
-            var selectedRoom = sap.ui.getCore().getModel("rooms").getProperty(sap.ui.getCore().byId("rooms").getSelectedItem().oBindingContexts.rooms.sPath);
+//            var selectedRoom = sap.ui.getCore().getModel("rooms").getProperty(sap.ui.getCore().byId("rooms").getSelectedItem().oBindingContexts.rooms.sPath);
         },
         administrationRoomPressed: function (oEvent) {
         	this.administrationSelectedRoomPath=oEvent.getParameter("listItem").oBindingContexts.rooms.sPath;
             this.administrationSelectedRoom=sap.ui.getCore().getModel("rooms").getProperty(this.administrationSelectedRoomPath);
-            var roomId=oEvent.getParameter("listItem").getCustomData()[0].getValue();
+//            var roomId=oEvent.getParameter("listItem").getCustomData()[0].getValue();
 
             this._administrationShowRoomDetails(this.administrationSelectedRoom);
         },
