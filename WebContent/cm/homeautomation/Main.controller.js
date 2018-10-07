@@ -1213,13 +1213,16 @@ sap.ui.define([
 		 * 
 		 */
         _loadDataFailed: function (event) {
+        	console.log("Over loading failed. "+e)
             this.loadDataInProgress = false;
             var subject = this;
             window.setTimeout(function () {
                 if (subject != null) {
                     subject.loadData.apply(subject);
+                } else {
+                	console.log("Overview re-loading: subject is null")
                 }
-            }, 2000);
+            }, 5000);
         },
 
         /**
