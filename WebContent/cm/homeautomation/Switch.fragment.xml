@@ -138,7 +138,7 @@
 				headerText="New Historic Data" width="100%" height="100%"
 				class="sapUiResponsiveMargin" expand="expandNewHistoricData">
 				<content>
-					<lab:LineChartJS id="line_chart"
+					<!-- <lab:LineChartJS id="line_chart"
 						datasets="{historicalData>/datasets}"
 						labels="{historicalData/labels}" titleDisplay="true"
 						titleText="Data"
@@ -148,7 +148,7 @@
 						onAnimationProgress="onAnimationProgress"
 						onAnimationComplete="onAnimationComplete" showLines="true"
 						spanGaps="true">
-					</lab:LineChartJS>
+					</lab:LineChartJS> -->
 
 				</content>
 			</Panel>
