@@ -1224,7 +1224,19 @@ sap.ui.define([
                 }
             }, 5000);
         },
-
+        expandNewHistoricData: function (oEvent) {
+            if (oEvent.getParameter("expand") == true) {
+                // getHistoricalSensordata(this.selectedRoom);
+                this._getNewHistoricalData(this.selectedRoom);
+            }
+        },
+        _getNewHistoricalData: function(selectedRoom) {
+          var historicalDataRest = new RESTService();
+          historicalDataRest.loadDataAsync("/HomeAutomation/services/sensors/forroom/" + selectedRoom, "", "GET", this._historicalNewDataLoaded, null, this);
+        },
+        _historicalNewDataLoaded: function(event, model, data) {
+        	
+        },
         /**
 		 * show historic data
 		 */
