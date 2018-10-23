@@ -440,7 +440,7 @@ sap.ui.define([
 
             this.currentRoomModel = new sap.ui.model.json.JSONModel();
 
-            sap.ui.getCore().getModel(this.currentRoomModel, "currentRoom");
+            sap.ui.getCore().setModel(this.currentRoomModel, "currentRoom");
 
             window.setInterval(
                 function () {
