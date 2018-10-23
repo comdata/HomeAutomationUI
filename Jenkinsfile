@@ -15,15 +15,13 @@ pipeline {
 		}
 		stage('Build') { 
 			steps {
+				withMaven() {
 					sh 'mvn -T 1C -N install'
+				}
 			}
 		}
-		
-	
-	
 	    stage('Deploy') {
 	       parallel {
-	      	
 	   			stage('Deploy Frontend') {
 	        		steps {
 	       				sh 'rsync -auv WebContent/* root@192.168.1.76:/var/lib/tomcat8/webapps/HomeAutomationUI'
@@ -31,10 +29,5 @@ pipeline {
 	   			}
 	   		}	
 	    }
-	    //stage('Restart') {
-	    //    steps {
-	    //   		sh 'ssh root@192.168.1.76 /etc/init.d/tomcat8 restart'
-	   	//	}
-	    //}
     }
 }
