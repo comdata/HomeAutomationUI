@@ -12,7 +12,7 @@
 						items="{
 			path: 'doorWindow>/',
 			sorter: { 
-				path:'state' 
+				path:'state' , descending: true
 			}
 		}"
 						title="Devices" selectionMode="MultiToggle" sticky="ColumnHeaders">
