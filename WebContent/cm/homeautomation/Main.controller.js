@@ -91,7 +91,8 @@ sap.ui.define([
             
             webHopSocket.formatter = new WebSockHop.JsonFormatter();
             webHopSocket.formatter.pingRequest = { "@c": "WebSocketPing","type": 'ping' };
-            webHopSocket.pingIntervalMsecs = 60000; // Change this to experiment with ping interval
+            webHopSocket.pingIntervalMsecs = 60000; // Change this to experiment
+													// with ping interval
             webHopSocket.pingResponseTimeoutMsecs = 10000; 
             var controller = this;
             webHopSocket.on('message', function (evt) {
@@ -100,10 +101,12 @@ sap.ui.define([
                 callback.apply(controller, [evt]);
 
             });
-            /*socket.onerror = function (evt) {
-                controller.wsOnClose.apply(controller, [evt, uri, callback, socket, state]);
-
-            };*/
+            /*
+			 * socket.onerror = function (evt) {
+			 * controller.wsOnClose.apply(controller, [evt, uri, callback,
+			 * socket, state]);
+			 *  };
+			 */
         },
         handleSwitchEvent: function (data) {
 
@@ -131,49 +134,52 @@ sap.ui.define([
 
         wsEventBusOnMessage: function (evt) {
             var newData = evt.data;
-            if (newData.clazz=="TransmissionStatusData") {
-            	this.handleTransmissionStatus(newData.data);
-            }
-
-            if (newData.clazz=="DistanceSensorData") {
-
-            	this.handleDistanceSensor(newData.data);
-            }
-
-            if (newData.clazz=="NetworkScannerHostFoundMessage") {
-
-            	this.handleNetworkMonitor(newData.data.host);
-            }
-
-            if  (newData.clazz=="SwitchEvent") {
-
-            	this.handleSwitchEvent(newData.data);
-            }
-            if  (newData.clazz=="CameraImageUpdateEvent") {
-
-            	this.handleCameraEvent(newData.data);
-            }
             
-            if  (newData.clazz=="HumanMessageEvent") {
-
-            	this.handleHumanMessageEventEvent(newData.data);
+            if (newData!=null && newData instanceof Object) {
+	            if (newData.clazz=="TransmissionStatusData") {
+	            	this.handleTransmissionStatus(newData.data);
+	            }
+	
+	            if (newData.clazz=="DistanceSensorData") {
+	
+	            	this.handleDistanceSensor(newData.data);
+	            }
+	
+	            if (newData.clazz=="NetworkScannerHostFoundMessage") {
+	
+	            	this.handleNetworkMonitor(newData.data.host);
+	            }
+	
+	            if  (newData.clazz=="SwitchEvent") {
+	
+	            	this.handleSwitchEvent(newData.data);
+	            }
+	            if  (newData.clazz=="CameraImageUpdateEvent") {
+	
+	            	this.handleCameraEvent(newData.data);
+	            }
+	            
+	            if  (newData.clazz=="HumanMessageEvent") {
+	
+	            	this.handleHumanMessageEventEvent(newData.data);
+	            }
+	
+	            if (newData.clazz=="MailData") {
+	            	this.handleMailEvent(newData.data);
+	            }
+	
+	            if (newData.clazz=="PowerMeterIntervalData") {
+	            	this.handlePowerEvent(newData.data);
+	            }
+	
+	            if (newData.clazz=="WindowStateData") {
+	              this.handleWindowStateEvent(newData.data);
+	            }
+	
+	            if (newData.clazz=="ActorMessage") {
+	                this.handleActorMessage(newData.data);
+	              }
             }
-
-            if (newData.clazz=="MailData") {
-            	this.handleMailEvent(newData.data);
-            }
-
-            if (newData.clazz=="PowerMeterIntervalData") {
-            	this.handlePowerEvent(newData.data);
-            }
-
-            if (newData.clazz=="WindowStateData") {
-              this.handleWindowStateEvent(newData.data);
-            }
-
-            if (newData.clazz=="ActorMessage") {
-                this.handleActorMessage(newData.data);
-              }
             console.log(evt.data);
         },
         wsOverviewOnMessage: function (evt) {
@@ -933,11 +939,11 @@ sap.ui.define([
 
           $.each(modelData, function(i, data) {
 
-//		        var element = {
-//		  				ipAddress: data.ip,
-//		  				hostName: data.hostname,
-//		  				mac: data.mac
-//		  		}
+// var element = {
+// ipAddress: data.ip,
+// hostName: data.hostname,
+// mac: data.mac
+// }
 		        subject.handleNetworkMonitor(data);
           });
 
@@ -1451,7 +1457,7 @@ sap.ui.define([
           var subject = this;
           var doorWindowModel = new RESTService();
           
-          //this.handleDoorWindowLoaded();
+          // this.handleDoorWindowLoaded();
           doorWindowModel.loadDataAsync("/HomeAutomation/services/window/readAll", "", "GET", subject.handleDoorWindowLoaded, null, subject);
 
         },
@@ -1528,7 +1534,7 @@ sap.ui.define([
                   this._dialogs["doorWindow"] = sap.ui.xmlfragment("cm.homeautomation.DoorWindowDetails", this);
               }
               this._dialogs["doorWindow"].open();
-              //this.doorWindowLoad();
+              // this.doorWindowLoad();
             }
             else if (tileType =="transmission") {
                 if (!this._dialogs["downloads"]) {
@@ -1824,7 +1830,7 @@ sap.ui.define([
 
         doorWindowDialogClose: function() {
             this._dialogs["doorWindow"].close();
-            //sap.ui.getCore().setModel(new JSONModel(), "doorWindow");
+            // sap.ui.getCore().setModel(new JSONModel(), "doorWindow");
         },
         downloadsDialogClose: function() {
             this._dialogs["downloads"].close();
@@ -2058,12 +2064,13 @@ sap.ui.define([
             this.administrationDialogLoadRooms();
         },
         handleRoomSelected: function (item, items, selected) {
-//            var selectedRoom = sap.ui.getCore().getModel("rooms").getProperty(sap.ui.getCore().byId("rooms").getSelectedItem().oBindingContexts.rooms.sPath);
+// var selectedRoom =
+// sap.ui.getCore().getModel("rooms").getProperty(sap.ui.getCore().byId("rooms").getSelectedItem().oBindingContexts.rooms.sPath);
         },
         administrationRoomPressed: function (oEvent) {
         	this.administrationSelectedRoomPath=oEvent.getParameter("listItem").oBindingContexts.rooms.sPath;
             this.administrationSelectedRoom=sap.ui.getCore().getModel("rooms").getProperty(this.administrationSelectedRoomPath);
-//            var roomId=oEvent.getParameter("listItem").getCustomData()[0].getValue();
+// var roomId=oEvent.getParameter("listItem").getCustomData()[0].getValue();
 
             this._administrationShowRoomDetails(this.administrationSelectedRoom);
         },
