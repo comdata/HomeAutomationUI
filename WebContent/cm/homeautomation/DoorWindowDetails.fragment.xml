@@ -12,10 +12,10 @@
 						items="{
 			path: 'doorWindow>/',
 			sorter: {
-				path: 'device/name'
+				path:['state', 'room/room', 'window/name' ]
 			}
 		}"
-						title="Devices" selectionMode="MultiToggle">
+						title="Devices" selectionMode="MultiToggle" sticky="sap.m.Sticky.ColumnHeaders">
 						<columns>
 							<Column>
 								<Text text="Raum" />
