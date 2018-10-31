@@ -133,9 +133,10 @@ sap.ui.define([
         },
 
         wsEventBusOnMessage: function (evt) {
+        	if (evt !=null && evt.data!=null) {
             var newData = evt.data;
             
-            if (newData!=null && newData instanceof Object) {
+            if (newData!=null && newData instanceof Object && newData.clazz!=null) {
 	            if (newData.clazz=="TransmissionStatusData") {
 	            	this.handleTransmissionStatus(newData.data);
 	            }
@@ -181,6 +182,7 @@ sap.ui.define([
 	              }
             }
             console.log(evt.data);
+        	}
         },
         wsOverviewOnMessage: function (evt) {
             var newData = evt.data;
