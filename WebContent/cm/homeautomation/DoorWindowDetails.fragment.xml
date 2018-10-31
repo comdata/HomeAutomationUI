@@ -15,7 +15,7 @@
 				path:['state', 'room/room', 'window/name' ]
 			}
 		}"
-						title="Devices" selectionMode="MultiToggle" sticky="sap.m.Sticky.ColumnHeaders">
+						title="Devices" selectionMode="MultiToggle" sticky="ColumnHeaders">
 						<columns>
 							<Column>
 								<Text text="Raum" />
