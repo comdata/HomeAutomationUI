@@ -11,8 +11,8 @@
 					<Table
 						items="{
 			path: 'doorWindow>/',
-			sorter: {
-				path:['state', 'room/room', 'window/name' ]
+			sorter: { 
+				path:'state' 
 			}
 		}"
 						title="Devices" selectionMode="MultiToggle" sticky="ColumnHeaders">
