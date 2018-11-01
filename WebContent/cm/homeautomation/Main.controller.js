@@ -144,42 +144,42 @@ sap.ui.define([
 	
 	            if (clazz=="DistanceSensorData") {
 	
-	            	this.handleDistanceSensor(newData.data);
+	            	this.handleDistanceSensor(newData);
 	            }
 	
 	            if (clazz=="NetworkScannerHostFoundMessage") {
 	
-	            	this.handleNetworkMonitor(newData.data.host);
+	            	this.handleNetworkMonitor(newData.host);
 	            }
 	
 	            if  (clazz=="SwitchEvent") {
 	
-	            	this.handleSwitchEvent(newData.data);
+	            	this.handleSwitchEvent(newData);
 	            }
 	            if  (clazz=="CameraImageUpdateEvent") {
 	
-	            	this.handleCameraEvent(newData.data);
+	            	this.handleCameraEvent(newData);
 	            }
 	            
 	            if  (clazz=="HumanMessageEvent") {
 	
-	            	this.handleHumanMessageEventEvent(newData.data);
+	            	this.handleHumanMessageEventEvent(newData);
 	            }
 	
 	            if (clazz=="MailData") {
-	            	this.handleMailEvent(newData.data);
+	            	this.handleMailEvent(newData);
 	            }
 	
 	            if (clazz=="PowerMeterIntervalData") {
-	            	this.handlePowerEvent(newData.data);
+	            	this.handlePowerEvent(newData);
 	            }
 	
 	            if (clazz=="WindowStateData") {
-	              this.handleWindowStateEvent(newData.data);
+	              this.handleWindowStateEvent(newData);
 	            }
 	
 	            if (clazz=="ActorMessage") {
-	                this.handleActorMessage(newData.data);
+	                this.handleActorMessage(newData);
 	              }
             }
             console.log(evt.data);
