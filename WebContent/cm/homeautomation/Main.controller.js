@@ -135,49 +135,50 @@ sap.ui.define([
         wsEventBusOnMessage: function (evt) {
         	if (evt !=null && evt.data!=null) {
             var newData = evt.data;
+            let clazz=evt.clazz;
             
-            if (newData!=null && newData instanceof Object && newData.clazz!=null) {
-	            if (newData.clazz=="TransmissionStatusData") {
+            if (newData!=null && newData instanceof Object && clazz!=null) {
+	            if (clazz=="TransmissionStatusData") {
 	            	this.handleTransmissionStatus(newData.data);
 	            }
 	
-	            if (newData.clazz=="DistanceSensorData") {
+	            if (clazz=="DistanceSensorData") {
 	
 	            	this.handleDistanceSensor(newData.data);
 	            }
 	
-	            if (newData.clazz=="NetworkScannerHostFoundMessage") {
+	            if (clazz=="NetworkScannerHostFoundMessage") {
 	
 	            	this.handleNetworkMonitor(newData.data.host);
 	            }
 	
-	            if  (newData.clazz=="SwitchEvent") {
+	            if  (clazz=="SwitchEvent") {
 	
 	            	this.handleSwitchEvent(newData.data);
 	            }
-	            if  (newData.clazz=="CameraImageUpdateEvent") {
+	            if  (clazz=="CameraImageUpdateEvent") {
 	
 	            	this.handleCameraEvent(newData.data);
 	            }
 	            
-	            if  (newData.clazz=="HumanMessageEvent") {
+	            if  (clazz=="HumanMessageEvent") {
 	
 	            	this.handleHumanMessageEventEvent(newData.data);
 	            }
 	
-	            if (newData.clazz=="MailData") {
+	            if (clazz=="MailData") {
 	            	this.handleMailEvent(newData.data);
 	            }
 	
-	            if (newData.clazz=="PowerMeterIntervalData") {
+	            if (clazz=="PowerMeterIntervalData") {
 	            	this.handlePowerEvent(newData.data);
 	            }
 	
-	            if (newData.clazz=="WindowStateData") {
+	            if (clazz=="WindowStateData") {
 	              this.handleWindowStateEvent(newData.data);
 	            }
 	
-	            if (newData.clazz=="ActorMessage") {
+	            if (clazz=="ActorMessage") {
 	                this.handleActorMessage(newData.data);
 	              }
             }
