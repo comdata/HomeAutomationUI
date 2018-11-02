@@ -135,50 +135,51 @@ sap.ui.define([
         wsEventBusOnMessage: function (evt) {
         	if (evt !=null && evt.data!=null) {
             var newData = evt.data;
+            let clazz=evt.clazz;
             
-            if (newData!=null && newData instanceof Object && newData.clazz!=null) {
-	            if (newData.clazz=="TransmissionStatusData") {
+            if (newData!=null && newData instanceof Object && clazz!=null) {
+	            if (clazz=="TransmissionStatusData") {
 	            	this.handleTransmissionStatus(newData.data);
 	            }
 	
-	            if (newData.clazz=="DistanceSensorData") {
+	            if (clazz=="DistanceSensorData") {
 	
-	            	this.handleDistanceSensor(newData.data);
+	            	this.handleDistanceSensor(newData);
 	            }
 	
-	            if (newData.clazz=="NetworkScannerHostFoundMessage") {
+	            if (clazz=="NetworkScannerHostFoundMessage") {
 	
-	            	this.handleNetworkMonitor(newData.data.host);
+	            	this.handleNetworkMonitor(newData.host);
 	            }
 	
-	            if  (newData.clazz=="SwitchEvent") {
+	            if  (clazz=="SwitchEvent") {
 	
-	            	this.handleSwitchEvent(newData.data);
+	            	this.handleSwitchEvent(newData);
 	            }
-	            if  (newData.clazz=="CameraImageUpdateEvent") {
+	            if  (clazz=="CameraImageUpdateEvent") {
 	
-	            	this.handleCameraEvent(newData.data);
+	            	this.handleCameraEvent(newData);
 	            }
 	            
-	            if  (newData.clazz=="HumanMessageEvent") {
+	            if  (clazz=="HumanMessageEvent") {
 	
-	            	this.handleHumanMessageEventEvent(newData.data);
+	            	this.handleHumanMessageEventEvent(newData);
 	            }
 	
-	            if (newData.clazz=="MailData") {
-	            	this.handleMailEvent(newData.data);
+	            if (clazz=="MailData") {
+	            	this.handleMailEvent(newData);
 	            }
 	
-	            if (newData.clazz=="PowerMeterIntervalData") {
-	            	this.handlePowerEvent(newData.data);
+	            if (clazz=="PowerMeterIntervalData") {
+	            	this.handlePowerEvent(newData);
 	            }
 	
-	            if (newData.clazz=="WindowStateData") {
-	              this.handleWindowStateEvent(newData.data);
+	            if (clazz=="WindowStateData") {
+	              this.handleWindowStateEvent(newData);
 	            }
 	
-	            if (newData.clazz=="ActorMessage") {
-	                this.handleActorMessage(newData.data);
+	            if (clazz=="ActorMessage") {
+	                this.handleActorMessage(newData);
 	              }
             }
             console.log(evt.data);
