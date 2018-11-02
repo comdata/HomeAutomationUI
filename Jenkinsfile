@@ -27,6 +27,13 @@ pipeline {
 	       				sh 'rsync -auv WebContent/* root@192.168.1.76:/var/lib/tomcat8/webapps/HomeAutomationUI'
 	   				}
 	   			}
+	   			stage('Sonarqube') {
+		   			steps {
+		   				//org.jacoco:jacoco-maven-plugin:prepare-agent
+		   		    	sh 'mvn -DskipTests=true  sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN -Dsonar.organization=homeautomation'
+		   			}
+		   		}
+   		}	
 	   		}	
 	    }
     }
