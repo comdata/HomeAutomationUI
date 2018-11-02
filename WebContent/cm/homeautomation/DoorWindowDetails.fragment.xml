@@ -1,7 +1,8 @@
 <core:FragmentDefinition xmlns="sap.m"
 	xmlns:core="sap.ui.core">
-	<Dialog title="Fenster und Türen" afterClose="afterDoorWindowDialogClose"
-		stretch="true" horizontalScrolling="false" verticalScrolling="true"
+	<Dialog title="Fenster und Türen"
+		afterClose="afterDoorWindowDialogClose" stretch="true"
+		horizontalScrolling="false" verticalScrolling="true"
 		contentHeight="100%">
 		<content>
 			<Panel expandable="false" expanded="true" width="auto"
@@ -38,8 +39,12 @@
 								<cells>
 									<Text text="{doorWindow>room/roomName}" />
 									<Text text="{doorWindow>window/name}" />
-									<Text text="{=${doorWindow>state} === 0 ? 'geschlossen': 'offen' }" />
-									<Switch text="{=${doorWindow>state} === 0 ? false: true }" customTextOn="O" customTextOff="G" change="doorWindowStateChange" />
+									<Text
+										text="{=${doorWindow>state} === 0 ? 'geschlossen': 'offen' }" />
+									<Switch
+										text="{=${doorWindow>state} === 0 ? false: true }"
+										customTextOn="O" customTextOff="G"
+										change="doorWindowStateChange" />
 									<Text
 										text="{
 											path: 'doorWindow>date',
@@ -55,11 +60,11 @@
 
 		</content>
 		<beginButton>
-
+			<Button text="Aktualisieren" press="doorWindowDialogReload" />
 
 		</beginButton>
 		<endButton>
-			<Button text="Aktualisieren" press="doorWindowDialogReload" />
+
 			<Button text="Schliessen" press="doorWindowDialogClose" />
 		</endButton>
 
