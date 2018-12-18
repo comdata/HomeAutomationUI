@@ -757,9 +757,9 @@ sap.ui.define([
 				fullWidth: this.getLegendFullWidth(),
 				reverse: this.getLegendReverse(),
 				labels: legendLabelOptions,
-				onClick: function(event, legendItem) {
-		    		that.fireOnLegendItemClick({event: event, legendItem: legendItem});
-		    	},
+//				onClick: function(event, legendItem) {
+//		    		that.fireOnLegendItemClick({event: event, legendItem: legendItem});
+//		    	},
 				onHover: function(event, legendItem) {
 		    		that.fireOnLegendItemHover({event: event, legendItem: legendItem});
 		    	},
