@@ -90,10 +90,12 @@ sap.ui.define([
             this._websockets[uri]=webHopSocket;
             
             webHopSocket.formatter = new WebSockHop.JsonFormatter();
-            //webHopSocket.formatter.pingRequest = { "@c": "WebSocketPing","type": 'ping' };
-            //webHopSocket.pingIntervalMsecs = 60000; // Change this to experiment
+            // webHopSocket.formatter.pingRequest = { "@c":
+			// "WebSocketPing","type": 'ping' };
+            // webHopSocket.pingIntervalMsecs = 60000; // Change this to
+			// experiment
 													// with ping interval
-            //webHopSocket.pingResponseTimeoutMsecs = 10000; 
+            // webHopSocket.pingResponseTimeoutMsecs = 10000;
             var controller = this;
             webHopSocket.on('message', function (evt) {
                 // controller.wsClose(socket, state);
@@ -104,8 +106,7 @@ sap.ui.define([
             /*
 			 * socket.onerror = function (evt) {
 			 * controller.wsOnClose.apply(controller, [evt, uri, callback,
-			 * socket, state]);
-			 *  };
+			 * socket, state]); };
 			 */
         },
         handleSwitchEvent: function (data) {
@@ -1244,7 +1245,84 @@ sap.ui.define([
           historicalDataRest.loadDataAsync("/HomeAutomation/services/sensors/forroom/" + selectedRoom, "", "GET", this._historicalNewDataLoaded, null, this);
         },
         _historicalNewDataLoaded: function(event, model, data) {
-        	
+            var labels=[];
+            var datasets=[];
+            var colors=["rgba(220,220,0,0.5)", 
+            			"rgba(220,150,220,0.5)",
+            			"rgba(120,220,220,0.5)",
+            			"rgba(120,220,0,0.5)", 
+            			"rgba(0,0,220,0.5)",
+            			"rgba(120,250,220,0.5)",
+            			"rgba(120,140,0,0.5)", 
+            			"rgba(120,120,220,0.5)",
+            			];
+            $.each(data.sensorData, function(i, element) {
+            	var dataseries=new Array();
+                $.each(element.values, function(a, elem) {
+                  //
+                  labels.push(formatter.dateTimeFormatter(elem.dateTime));
+
+
+                  dataseries.push({x:formatter.dateTimeFormatter(elem.dateTime), y:parseFloat(elem.value.replace(",", "."))});
+                });
+                var singleDataSet={
+                        label: element.sensorName,
+    					fill: false,
+    					lineTension: 0.1,
+    					backgroundColor: colors[i%(colors.length-1)],
+    					borderColor: colors[i%(colors.length-1)],
+    					borderCapStyle: 'butt',
+    					borderDash: [],
+    					borderDashOffset: 0.0,
+    					borderJoinStyle: 'miter',
+    					pointBorderColor: colors[i%(colors.length-1)],
+    					pointBackgroundColor: "#fff",
+    					pointBorderWidth: 1,
+    					pointHoverRadius: 5,
+    					pointHoverBackgroundColor: colors[i%(colors.length-1)],
+    					pointHoverBorderColor: "rgba(220,220,220,1)",
+    					pointHoverBorderWidth: 2,
+    					pointRadius: 1,
+    					pointHitRadius: 10,
+    					data: dataseries,
+    					spanGaps: true,
+    					steppedLine: true,
+                        
+                        };
+                        datasets.push(singleDataSet);
+
+            });
+        	var data = {
+        			labels: labels, //["January", "February", "March", "April", "May", "June", "July"],
+        			datasets: datasets, /*[
+        				{
+        					label: datasets[0].label,
+        					fill: false,
+        					lineTension: 0.1,
+        					backgroundColor: "rgba(75,192,192,0.4)",
+        					borderColor: "rgba(75,192,192,1)",
+        					borderCapStyle: 'butt',
+        					borderDash: [],
+        					borderDashOffset: 0.0,
+        					borderJoinStyle: 'miter',
+        					pointBorderColor: "rgba(75,192,192,1)",
+        					pointBackgroundColor: "#fff",
+        					pointBorderWidth: 1,
+        					pointHoverRadius: 5,
+        					pointHoverBackgroundColor: "rgba(75,192,192,1)",
+        					pointHoverBorderColor: "rgba(220,220,220,1)",
+        					pointHoverBorderWidth: 2,
+        					pointRadius: 1,
+        					pointHitRadius: 10,
+        					data: datasets[0].data,
+        					spanGaps: false,
+        					steppedLine: true,
+        				}
+        			]*/
+        		};
+        	var chartJSModel = new JSONModel();
+            chartJSModel.setData(data);
+            sap.ui.getCore().setModel(chartJSModel, "historicData");
         },
         /**
 		 * show historic data
