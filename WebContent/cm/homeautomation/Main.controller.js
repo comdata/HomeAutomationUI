@@ -1240,6 +1240,13 @@ sap.ui.define([
                 this._getNewHistoricalData(this.selectedRoom);
             }
         },
+        
+        expandGrafana: function(oEvent) {
+        	if (oEvent.getParameter("expand") == true) {
+        		sap.ui.getCore().byId("grafanaData").setContent("<iframe src='http://192.168.1.76:3000/d-solo/UZ8CT7Zgk/messwerte?orgId=1&panelId=2&from=1545182081618&to=1545209691157&var-ROOMID="+this.selectedRoom+"' width='100%' height='400' frameborder='0'></iframe>");
+        	}
+        },
+        
         _getNewHistoricalData: function(selectedRoom) {
           var historicalDataRest = new RESTService();
           historicalDataRest.loadDataAsync("/HomeAutomation/services/sensors/forroom/" + selectedRoom, "", "GET", this._historicalNewDataLoaded, null, this);
@@ -1260,10 +1267,12 @@ sap.ui.define([
             	var dataseries=new Array();
                 $.each(element.values, function(a, elem) {
                   //
-                  labels.push(formatter.dateTimeFormatter(elem.dateTime));
+                	if (elem.value!="") {
+                  labels.push(moment(elem.dateTime)); //formatter.dateTimeFormatter(elem.dateTime));
 
 
-                  dataseries.push({x:formatter.dateTimeFormatter(elem.dateTime), y:parseFloat(elem.value.replace(",", "."))});
+                  dataseries.push({t:moment(elem.dateTime), y:parseFloat(elem.value.replace(",", "."))});
+                	}
                 });
                 var singleDataSet={
                         label: element.sensorName,
@@ -1292,33 +1301,58 @@ sap.ui.define([
                         datasets.push(singleDataSet);
 
             });
+            //labels.sort();
         	var data = {
         			labels: labels, //["January", "February", "March", "April", "May", "June", "July"],
-        			datasets: datasets, /*[
-        				{
-        					label: datasets[0].label,
-        					fill: false,
-        					lineTension: 0.1,
-        					backgroundColor: "rgba(75,192,192,0.4)",
-        					borderColor: "rgba(75,192,192,1)",
-        					borderCapStyle: 'butt',
-        					borderDash: [],
-        					borderDashOffset: 0.0,
-        					borderJoinStyle: 'miter',
-        					pointBorderColor: "rgba(75,192,192,1)",
-        					pointBackgroundColor: "#fff",
-        					pointBorderWidth: 1,
-        					pointHoverRadius: 5,
-        					pointHoverBackgroundColor: "rgba(75,192,192,1)",
-        					pointHoverBorderColor: "rgba(220,220,220,1)",
-        					pointHoverBorderWidth: 2,
-        					pointRadius: 1,
-        					pointHitRadius: 10,
-        					data: datasets[0].data,
-        					spanGaps: false,
-        					steppedLine: true,
-        				}
-        			]*/
+        			datasets: datasets,
+        		
+        			scales: {
+    					xAxes: [{
+    						type: 'time',
+    						distribution: 'series',
+    						ticks: {
+    							source: 'labels'
+    						}
+    					}],
+    					yAxes: [{
+    						scaleLabel: {
+    							display: true,
+    							labelString: ''
+    						}
+    					}]
+    				} 
+//	               scales: {
+//	                   xAxes: [{
+//	                      type: 'time',
+//	                      time: {
+//							displayFormats: {minute: 'DD.MM.YYYY HH:mm'},
+////							// round: 'day'
+////							tooltipFormat: 'll HH:mm'
+//						},
+////						scaleLabel: {
+////							display: true,
+////							labelString: 'Date'
+////						},
+//						
+//	                      position: 'bottom',
+////	                        ticks: {
+////	                               callback: function(dataLabel, index) {
+////	                                     // Hide the label of
+////	                 // every 12th dataset.
+////	                 // return null to hide
+////	                 // the grid line too
+////	                                     return index % 12 === 0 ? dataLabel : '';
+////	                                 }
+////	
+////	                   }
+//						}],
+//					yAxes: [{
+//						scaleLabel: {
+//							display: true,
+//							//labelString: 'value'
+//						}
+//					}]
+//	               }
         		};
         	var chartJSModel = new JSONModel();
             chartJSModel.setData(data);
