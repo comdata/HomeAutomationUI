@@ -1204,7 +1204,6 @@ sap.ui.define([
 		 */
         loadRoom: function () {
 
-        	this.loadGrafanaData();
         	
             var subject = this;
             var switchesModel = new RESTService();
@@ -1736,6 +1735,8 @@ sap.ui.define([
                     // toggle compact style
                     jQuery.sap.syncStyleClass("sapUiSizeCompact", this.getView(), this._oDialog);
                     this._oDialog.open();
+                    
+                    this.loadGrafanaData();
                 }
             }
 
