@@ -141,7 +141,7 @@
 				</content>
 			</Panel> -->
 
-			<Panel expandable="true" headerText="Grafana Data" expand="expandGrafana">
+			<Panel expandable="true" expanded="true" headerText="Grafana Data" expand="expandGrafana">
 				<content>
 					<core:HTML id="grafanaData" content="">
 					</core:HTML> </content>

@@ -1204,6 +1204,8 @@ sap.ui.define([
 		 */
         loadRoom: function () {
 
+        	this.loadGrafanaData();
+        	
             var subject = this;
             var switchesModel = new RESTService();
             switchesModel.loadDataAsync("/HomeAutomation/services/actor/forroom/" + subject.selectedRoom, "", "GET", subject.handleSwitchesLoaded, null, subject);
@@ -1243,10 +1245,12 @@ sap.ui.define([
         
         expandGrafana: function(oEvent) {
         	if (oEvent.getParameter("expand") == true) {
-        		sap.ui.getCore().byId("grafanaData").setContent("<iframe src='http://192.168.1.76:3000/d-solo/UZ8CT7Zgk/messwerte?orgId=1&panelId=2&from=1545182081618&to=1545209691157&var-ROOMID="+this.selectedRoom+"' width='100%' height='400' frameborder='0'></iframe>");
+        		this.loadGrafanaData();
         	}
         },
-        
+        loadGrafanaData: function() {
+        	sap.ui.getCore().byId("grafanaData").setContent("<iframe src='http://192.168.1.76:3000/d-solo/UZ8CT7Zgk/messwerte?orgId=1&panelId=2&from=now-2d&to=now&var-ROOMID="+this.selectedRoom+"' width='100%' height='400' frameborder='0'></iframe>");	
+        },
         _getNewHistoricalData: function(selectedRoom) {
           var historicalDataRest = new RESTService();
           historicalDataRest.loadDataAsync("/HomeAutomation/services/sensors/forroom/" + selectedRoom, "", "GET", this._historicalNewDataLoaded, null, this);
