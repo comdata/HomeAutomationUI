@@ -1248,7 +1248,7 @@ sap.ui.define([
         	}
         },
         loadGrafanaData: function() {
-        	sap.ui.getCore().byId("grafanaData").setContent("<iframe src='http://"+location.host+":3000/d-solo/UZ8CT7Zgk/messwerte?orgId=1&panelId=2&from=now-2d&to=now&var-ROOMID="+this.selectedRoom+"' width='100%' height='400' frameborder='0'></iframe>");	
+        	sap.ui.getCore().byId("grafanaData").setContent("<iframe src='http://"+location.hostname+":3000/d-solo/UZ8CT7Zgk/messwerte?orgId=1&panelId=2&from=now-2d&to=now&var-ROOMID="+this.selectedRoom+"' width='100%' height='400' frameborder='0'></iframe>");	
         },
         _getNewHistoricalData: function(selectedRoom) {
           var historicalDataRest = new RESTService();
