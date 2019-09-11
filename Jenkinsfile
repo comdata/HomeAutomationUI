@@ -16,7 +16,7 @@ pipeline {
 		stage('Build') { 
 			steps {
 				withMaven() {
-					sh 'mvn -T 1C -N install'
+					sh 'MVN_CMD -T 1C -N install'
 				}
 			}
 		}
@@ -30,7 +30,7 @@ pipeline {
 	   			stage('Sonarqube') {
 		   			steps {
 		   				//org.jacoco:jacoco-maven-plugin:prepare-agent
-		   		    	sh 'mvn -DskipTests=true  sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN -Dsonar.organization=homeautomation'
+		   		    	//sh 'MVN_CMD -DskipTests=true  sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN -Dsonar.organization=homeautomation'
 		   			}
 		   		}	
 	   		}	
