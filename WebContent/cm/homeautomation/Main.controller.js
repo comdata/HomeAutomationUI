@@ -1726,6 +1726,8 @@ sap.ui.define([
 	    				});
                 	} else {
                 		this.byId("Camera").open();
+                		this.byId("Camera").getContent()[0].setContent('<div align="center" width="100%" ><img onload="resize(this)" onclick="resize(this)" src="'+stream+'" width="576" height="324" /></div><br />');
+                		
                 	}
 //                    this.camera = sap.ui.xmlfragment("cm.homeautomation.Camera", this);
 //                    
