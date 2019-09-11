@@ -1705,12 +1705,32 @@ sap.ui.define([
                   this._dialogs["presence"].open();
                 }
             else if (tileType == "camera") {
-                if (!this.camera) {
-                    this.camera = sap.ui.xmlfragment("cm.homeautomation.Camera", this);
-                    var stream = selectedElement.stream;
-                    jQuery.sap.syncStyleClass("sapUiSizeCompact", this.getView(), this.camera);
-                    this.camera.open();
-                    this.camera.getContent()[0].setContent('<div align="center" width="100%" ><img onload="resize(this)" onclick="resize(this)" src="'+stream+'" width="576" height="324" /></div><br />');
+//                if (!this.camera) {
+                	var oView = this.getView();
+                	var stream = selectedElement.stream;
+                	
+                	if (!this.byId("Camera")) {
+                	
+	                	Fragment.load({
+	    					id: oView.getId(),
+	    					name: "cm.homeautomation.Camera"",
+	    					controller: this
+	    				}).then(function (oDialog) {
+	    					// connect dialog to the root view of this component (models, lifecycle)
+	    					oView.addDependent(oDialog);
+	    					jQuery.sap.syncStyleClass("sapUiSizeCompact", oView, oDialog);
+	    					oDialog.open();
+	    					
+	    					oDialog.getContent()[0].setContent('<div align="center" width="100%" ><img onload="resize(this)" onclick="resize(this)" src="'+stream+'" width="576" height="324" /></div><br />');
+	    				});
+                	} else {
+                		this.byId("Camera").open();
+                	}
+//                    this.camera = sap.ui.xmlfragment("cm.homeautomation.Camera", this);
+//                    
+//                    jQuery.sap.syncStyleClass("sapUiSizeCompact", this.getView(), this.camera);
+//                    this.camera.open();
+//                    this.camera.
                 }
             }
             else if (tileType == "planes") {
@@ -1893,7 +1913,7 @@ sap.ui.define([
             this._oDialog.close();
         },
         cameraDialogClose: function () {
-            this.camera.close();
+        	this.byId("Camera").close();
         },
         trainDialogClose: function () {
             this.trainDialog.close();
