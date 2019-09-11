@@ -1713,7 +1713,7 @@ sap.ui.define([
                 	
 	                	Fragment.load({
 	    					id: oView.getId(),
-	    					name: "cm.homeautomation.Camera"",
+	    					name: "cm.homeautomation.Camera",
 	    					controller: this
 	    				}).then(function (oDialog) {
 	    					// connect dialog to the root view of this component (models, lifecycle)
