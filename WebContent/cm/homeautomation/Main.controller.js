@@ -60,8 +60,9 @@ sap.ui.define([
     'sap/ui/model/json/JSONModel',
     'cm/webservice/RESTService',
     'cm/homeautomation/Validator',
-    "sap/ui/model/resource/ResourceModel"
-], function (jQuery, Controller, JSONModel, RESTService, Validator,ResourceModel) {
+    "sap/ui/model/resource/ResourceModel",
+    "sap/ui/core/Fragment"
+], function (jQuery, Controller, JSONModel, RESTService, Validator,ResourceModel, Fragment) {
     "use strict";
 
     return Controller.extend("cm.homeautomation.Main", {
