@@ -1731,7 +1731,6 @@ sap.ui.define([
 //                    jQuery.sap.syncStyleClass("sapUiSizeCompact", this.getView(), this.camera);
 //                    this.camera.open();
 //                    this.camera.
-                }
             }
             else if (tileType == "planes") {
                 if (!this.planesView) {
