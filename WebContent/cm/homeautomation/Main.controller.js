@@ -1988,8 +1988,10 @@ sap.ui.define([
             this._oDialog = null;
         },
         afterCameraDialogClose: function () {
-            this.camera.destroy();
-            this.camera = null;
+        	if (this.byId("Camera")) {
+        		this.byId("Camera").destroy();
+//        		this.camera = null;
+        	}
         },
         afterNetworkDialogClose: function () {
           // TODO add cleanup
