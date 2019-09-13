@@ -6,8 +6,11 @@
 		<content>
 
 
-			<agraebe.custom:ChartJSControl width="600"
-				height="400" responsive="true" chartType="Bar" data="{powerdata>/barData}" />
+					<Panel expandable="true" expanded="true" headerText="Grafana Data" expand="expandGrafana">
+				<content>
+					<core:HTML id="grafanaData" content="">
+					</core:HTML> </content>
+			</Panel>
 
 
 		</content>
