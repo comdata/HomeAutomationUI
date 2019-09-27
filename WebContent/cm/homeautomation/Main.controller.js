@@ -87,28 +87,18 @@ sap.ui.define([
         },
         initWebSocket: function (uri, callback, socket, state) {
             var webHopSocket = new WebSockHop(uri+"/"+this._wsGuid);
-            
+
             this._websockets[uri]=webHopSocket;
-            
+
             webHopSocket.formatter = new WebSockHop.JsonFormatter();
-            // webHopSocket.formatter.pingRequest = { "@c":
-			// "WebSocketPing","type": 'ping' };
-            // webHopSocket.pingIntervalMsecs = 60000; // Change this to
-			// experiment
-													// with ping interval
-            // webHopSocket.pingResponseTimeoutMsecs = 10000;
+
             var controller = this;
             webHopSocket.on('message', function (evt) {
-                // controller.wsClose(socket, state);
-                // controller.initWebSocket(uri, callback, socket, state);
+
                 callback.apply(controller, [evt]);
 
             });
-            /*
-			 * socket.onerror = function (evt) {
-			 * controller.wsOnClose.apply(controller, [evt, uri, callback,
-			 * socket, state]); };
-			 */
+
         },
         handleSwitchEvent: function (data) {
 
@@ -138,48 +128,48 @@ sap.ui.define([
         	if (evt !=null && evt.data!=null) {
             var newData = evt.data;
             let clazz=evt.clazz;
-            
+
             if (newData!=null && newData instanceof Object && clazz!=null) {
 	            if (clazz=="TransmissionStatusData") {
 	            	this.handleTransmissionStatus(newData.data);
 	            }
-	
+
 	            if (clazz=="DistanceSensorData") {
-	
+
 	            	this.handleDistanceSensor(newData);
 	            }
-	
+
 	            if (clazz=="NetworkScannerHostFoundMessage") {
-	
+
 	            	this.handleNetworkMonitor(newData.host);
 	            }
-	
+
 	            if  (clazz=="SwitchEvent") {
-	
+
 	            	this.handleSwitchEvent(newData);
 	            }
 	            if  (clazz=="CameraImageUpdateEvent") {
-	
+
 	            	this.handleCameraEvent(newData);
 	            }
-	            
+
 	            if  (clazz=="HumanMessageEvent") {
-	
+
 	            	this.handleHumanMessageEventEvent(newData);
 	            }
-	
+
 	            if (clazz=="MailData") {
 	            	this.handleMailEvent(newData);
 	            }
-	
+
 	            if (clazz=="PowerMeterIntervalData") {
 	            	this.handlePowerEvent(newData);
 	            }
-	
+
 	            if (clazz=="WindowStateData") {
 	              this.handleWindowStateEvent(newData);
 	            }
-	
+
 	            if (clazz=="ActorMessage") {
 	                this.handleActorMessage(newData);
 	              }
@@ -228,7 +218,7 @@ sap.ui.define([
         handleHumanMessageEventEvent: function (data) {
         		var message=data.message;
         		if (message!==undefined && message !="undefined" && message!="" && message !=null) {
-               	 this.messageToast.show(message);        			
+               	 this.messageToast.show(message);
         		}
 
         },
@@ -282,12 +272,12 @@ sap.ui.define([
                 if (element.state==1) {
                     translatedState="OPEN";
                   }
-            	
+
               if (translatedState=="OPEN") {
                 numberOpen++;
               }
             }, this );
-            
+
             var jsonModel=new JSONModel();
             jsonModel.setData(this._openWindows);
             this.handleDoorWindowLoaded(null, jsonModel);
@@ -436,7 +426,7 @@ sap.ui.define([
 
         /**
 		 * initialize
-		 * 
+		 *
 		 * @param evt
 		 */
         onInit: function (evt) {
@@ -485,7 +475,7 @@ sap.ui.define([
 
         /**
 		 * perform data loading
-		 * 
+		 *
 		 */
         loadData: function () {
 
@@ -512,16 +502,16 @@ sap.ui.define([
 			this.networkDevicesLoad();
         },
         _initWorldMapTile: function () {
-        	
+
             var worldmapModel = new JSONModel();
 
             var worldMapData={};
             worldMapData.url=location.hostname+":1880";
-            
+
             worldmapModel.setData(worldMapData);
 
             sap.ui.getCore().setModel(worldmapModel, "worldmap");
-        	
+
 			this._worldMapTile={
                     tileType: "worldmap",
                     roomId: "worldmap",
@@ -822,7 +812,7 @@ sap.ui.define([
 	                    infoState: sap.ui.core.ValueState.Success,
 	                    icon: "sap-icon://passenger-train"
 	                };
-	
+
 	            this.getView().getModel().getData().overviewTiles.push(this.legoTrainTile);
 	            this.getView().getModel().refresh(false);
         		}
@@ -858,12 +848,12 @@ sap.ui.define([
             	subject._openWindows=response;
             	subject._updateOpenWindows();
             }
-            
+
             });
         },
         /**
 		 * handle successful data loading for overview tiles
-		 * 
+		 *
 		 * @param event
 		 * @param model
 		 */
@@ -886,7 +876,7 @@ sap.ui.define([
             this._initPackageTile();
             this._initTripsTile();
             this._initPresenceTile();
-            
+
         },
         _initMailTile: function() {
         	var subject=this;
@@ -1044,13 +1034,13 @@ sap.ui.define([
             }
 
             var modelData=model.oData;
-            
+
             for (var i=0; i<modelData.switchStatuses.length;i++) {
             		modelData.switchStatuses[i].latestStatus=parseFloat(modelData.switchStatuses[i].latestStatus);
             }
-            
+
             model.setData(modelData);
-            
+
             sap.ui.getCore().setModel(model, "thermostats");
         },
         networkDeviceWakeUp: function (event) {
@@ -1060,16 +1050,16 @@ sap.ui.define([
         },
         handleLightRGBButton: function (event) {
             var singleLight = sap.ui.getCore().getModel("lights").getProperty(event.getSource().oPropagatedProperties.oBindingContexts.lights.sPath);
-        
+
 	    		var controller=new cm.homeautomation.ColorPicker();
 	    		controller.setMainController(this);
 	    		controller.setLight(singleLight);
-	    	
+
 	        if (!this._dialogs["colorPicker"]) {
 	            this._dialogs["colorPicker"] = sap.ui.xmlfragment("cm.homeautomation.ColorPicker", controller);
 	            controller.setDialog(this._dialogs["colorPicker"]);
 	        }
-	        this._dialogs["colorPicker"].open(); 
+	        this._dialogs["colorPicker"].open();
 	        controller.onBeforeRendering();
         },
         handleSwitchChange: function (event) {
@@ -1082,7 +1072,7 @@ sap.ui.define([
             } else {
                 newState = "OFF";
             }
-            
+
             if(singleSwitch.switchType=="IR") {
             		newState = "ON";
             }
@@ -1105,7 +1095,7 @@ sap.ui.define([
 
             /**
 			 * set value directly to all other window blinds
-			 * 
+			 *
 			 */
             if (windowBlind.type=="ALL_AT_ONCE") {
 
@@ -1148,7 +1138,7 @@ sap.ui.define([
             		light.maximumValue=99;
             		light.minimumValue=0;
             }
-            
+
             if (state == true) {
             		light.brightnessLevel=light.maximumValue;
             } else {
@@ -1199,7 +1189,7 @@ sap.ui.define([
 		 */
         loadRoom: function () {
 
-        	
+
             var subject = this;
             var switchesModel = new RESTService();
             switchesModel.loadDataAsync("/HomeAutomation/services/actor/forroom/" + subject.selectedRoom, "", "GET", subject.handleSwitchesLoaded, null, subject);
@@ -1216,7 +1206,7 @@ sap.ui.define([
 
         /**
 		 * trigger a reload if something goes wrong
-		 * 
+		 *
 		 */
         _loadDataFailed: function (event) {
         	console.log("Over loading failed. "+e)
@@ -1231,16 +1221,16 @@ sap.ui.define([
             }, 5000);
         },
         expandGrafana: function(oEvent) {
-        	
+
         	if (oEvent.getParameter("expand") == true) {
         		this.loadGrafanaData(this.grafanaMode);
         	}
         },
         loadGrafanaData: function(mode) {
         	this.grafanMode=mode;
-        	
+
         	if (mode=="room") {
-        	
+
         		sap.ui.getCore().byId("grafanaData").setContent("<iframe src='http://"+location.hostname+":3000/d-solo/UZ8CT7Zgk/messwerte?orgId=1&panelId=2&from=now-2d&to=now&var-ROOMID="+this.selectedRoom+"' width='100%' height='400' frameborder='0'></iframe>");
         	} else if (mode="power") {
         		sap.ui.getCore().byId("grafanaData").setContent("<iframe src='http://"+location.hostname+":3000/d/uf0FOlZRk/power-1h-intervals?orgId=1?orgId=1&panelId=2&from=now-2d&to=now' width='100%' height='400' frameborder='0'></iframe>");
@@ -1351,7 +1341,7 @@ sap.ui.define([
           doorWindowLoad: function() {
           var subject = this;
           var doorWindowModel = new RESTService();
-          
+
           // this.handleDoorWindowLoaded();
           doorWindowModel.loadDataAsync("/HomeAutomation/services/window/readAll", "", "GET", subject.handleDoorWindowLoaded, null, subject);
 
@@ -1367,7 +1357,7 @@ sap.ui.define([
         },
         /**
 		 * handle selection, triggering navigation
-		 * 
+		 *
 		 * @param event
 		 */
         handleSelect: function (event) {
@@ -1448,7 +1438,7 @@ sap.ui.define([
                     this._dialogs["worldmap"] = sap.ui.xmlfragment("cm.homeautomation.WorldMap", this);
                 }
                 this._dialogs["worldmap"].open();
-                
+
                 window.setTimeout(function() {
                 	$("#worldmapframe").attr("src","http://"+location.hostname+":1880/worldmap");
                 }, 4000);
@@ -1476,9 +1466,9 @@ sap.ui.define([
 //                if (!this.camera) {
                 	var oView = this.getView();
                 	var stream = selectedElement.stream;
-                	
+
                 	if (!this.byId("Camera")) {
-                	
+
 	                	Fragment.load({
 	    					id: oView.getId(),
 	    					name: "cm.homeautomation.Camera",
@@ -1488,18 +1478,18 @@ sap.ui.define([
 	    					oView.addDependent(oDialog);
 	    					jQuery.sap.syncStyleClass("sapUiSizeCompact", oView, oDialog);
 	    					oDialog.open();
-	    					
+
 	    					oDialog.getContent()[0].setContent('<div align="center" width="100%" ><img onload="resize(this)" onclick="resize(this)" src="'+stream+'" width="576" height="324" /></div><br />');
 	    				});
                 	} else {
                 		var cameraObject=this.byId("Camera");
                 		cameraObject.open();
-                		
+
                 		window.setTimeout(function() {
-                			cameraObject.getContent()[0].setContent('<div align="center" width="100%" ><img onload="resize(this)" onclick="resize(this)" src="'+stream+'" width="576" height="324" /></div><br />');	
+                			cameraObject.getContent()[0].setContent('<div align="center" width="100%" ><img onload="resize(this)" onclick="resize(this)" src="'+stream+'" width="576" height="324" /></div><br />');
                 		}, 5000);
-                		
-                		
+
+
                 	}
 
             }
@@ -1525,7 +1515,7 @@ sap.ui.define([
                     // toggle compact style
                     jQuery.sap.syncStyleClass("sapUiSizeCompact", this.getView(), this._oDialog);
                     this._oDialog.open();
-                    
+
                     this.loadGrafanaData("room");
                 }
             }
@@ -1609,7 +1599,7 @@ sap.ui.define([
         				  }
         				};
 			/*
-			 * 
+			 *
 			 */
 
             var chartJSModel = new JSONModel();
@@ -1673,7 +1663,7 @@ sap.ui.define([
         				  }
         				};
 			/*
-			 * 
+			 *
 			 */
 
             var chartJSModel = new JSONModel();
@@ -1697,12 +1687,12 @@ sap.ui.define([
         scriptingDialogOpen: function() {
         		var controller=new cm.homeautomation.Scripting();
         		controller.setMainController(this);
-        	
+
 	        if (!this._dialogs["scripting"]) {
 	            this._dialogs["scripting"] = sap.ui.xmlfragment("cm.homeautomation.ScriptingAdmin", controller);
 	            controller.setDialog(this._dialogs["scripting"]);
 	        }
-	        this._dialogs["scripting"].open(); 
+	        this._dialogs["scripting"].open();
 	        controller.onBeforeRendering();
 
         },
@@ -1772,7 +1762,7 @@ sap.ui.define([
         	this._dialogs["downloads"].destroy();
         	this._dialogs["downloads"] = null;
         },
-        
+
         afterWorldMapDialogClose: function () {
         	this._dialogs["worldmap"].destroy();
         	this._dialogs["worldmap"] = null;
@@ -1827,7 +1817,7 @@ sap.ui.define([
         },
         /**
 		 * menu open pressed
-		 * 
+		 *
 		 */
         handlePressOpenMenu: function (oEvent) {
             var oButton = oEvent.getSource();
@@ -1878,7 +1868,7 @@ sap.ui.define([
                 this._openAdminDialog();
             } else if (oEvent.getParameter("item").sId == "scriptingDialogOpen") {
             		this.scriptingDialogOpen();
-            	
+
             } else {
 
                 var msg = "";
