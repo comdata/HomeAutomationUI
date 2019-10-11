@@ -24,7 +24,7 @@ pipeline {
 	       parallel {
 	   			stage('Deploy Frontend') {
 	        		steps {
-	       				sh 'rsync -auv WebContent/* root@192.168.1.76:/var/lib/tomcat8/webapps/HomeAutomationUI'
+	       				sh 'rsync -auv WebContent/* root@192.168.1.36:/mnt/raid/tomcat8/webapps/HomeAutomationUI'
 	   				}
 	   			}
 	   			//stage('Sonarqube') {

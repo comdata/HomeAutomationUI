@@ -1233,7 +1233,7 @@ sap.ui.define([
 
         		sap.ui.getCore().byId("grafanaData").setContent("<iframe src='http://"+location.hostname+":3000/d-solo/UZ8CT7Zgk/messwerte?orgId=1&panelId=2&from=now-2d&to=now&var-ROOMID="+this.selectedRoom+"' width='100%' height='400' frameborder='0'></iframe>");
         	} else if (mode="power") {
-        		sap.ui.getCore().byId("grafanaData").setContent("<iframe src='http://"+location.hostname+":3000/d/uf0FOlZRk/power-1h-intervals?orgId=1?orgId=1&panelId=2&from=now-2d&to=now' width='100%' height='400' frameborder='0'></iframe>");
+        		sap.ui.getCore().byId("grafanaData").setContent("<iframe src='http://"+location.hostname+":3000/d-solo/uf0FOlZRk/power-1h-intervals?orgId=1?orgId=1&panelId=2&from=now-2d&to=now' width='100%' height='400' frameborder='0'></iframe>");
         	}
         },
         handleTrainSpeedChange:function(event){
