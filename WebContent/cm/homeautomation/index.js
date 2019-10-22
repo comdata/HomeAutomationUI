@@ -4,7 +4,9 @@ sap.ui.define([
 	"use strict";
 
 	XMLView.create({
-		viewName: "cm.homeautomation.Main"
+		viewName: "cm.homeautomation.Main",
+        width : "100%",
+		height : "100%"
 	}).then(function (oView) {
 		oView.placeAt("content");
 	});
