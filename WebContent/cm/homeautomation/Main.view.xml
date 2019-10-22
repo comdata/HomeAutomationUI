@@ -8,7 +8,7 @@
         >
 
 
-
+<App>
     <Page
             showHeader="false"
             enableScrolling="true">
@@ -50,5 +50,5 @@
 
 
     </Page>
-
+</App>
 </mvc:View>
