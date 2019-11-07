@@ -7,9 +7,8 @@
 	<packaging>war</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<version.servlet.api>4.0.1</version.servlet.api>
 	</properties>
-	
+
 	<repositories>
     <repository>
       <id>internal</id>
@@ -58,33 +57,11 @@
       </snapshots>
     </pluginRepository>
   </pluginRepositories>
-	
-	<dependencies>
-		<dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-api</artifactId>
-			<version>8.0</version>
-			<type>jar</type>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>${version.servlet.api}</version>
-			<scope>provided</scope>
-		</dependency>
-	</dependencies>
+
+
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.7.0</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
-			</plugin>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>3.2.2</version>
