@@ -37,8 +37,8 @@
 						<items>
 							<ColumnListItem>
 								<cells>
-									<Text text="{doorWindow>room/roomName}" />
-									<Text text="{doorWindow>window/name}" />
+									<Text text="{doorWindow>roomName}" />
+									<Text text="{doorWindow>windowName}" />
 									<Text
 										text="{=${doorWindow>state} === 0 ? 'geschlossen': 'offen' }" />
 									<Switch
